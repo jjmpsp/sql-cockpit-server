@@ -1,0 +1,45 @@
+appId: com.sqlcockpit.server
+productName: SQL Cockpit Server
+asar: true
+directories:
+  output: release
+files:
+  - dist/**/*
+  - dist-electron/**/*
+  - package.json
+artifactName: SQL-Cockpit-Server-${version}-${os}-${arch}.${ext}
+win:
+  extraResources:
+    - from: payloads/win32
+      to: server-payload
+  target:
+    - target: nsis
+      arch: [x64]
+  artifactName: SQL-Cockpit-Server-${version}-win-${arch}.${ext}
+  signAndEditExecutable: false
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+mac:
+  extraResources:
+    - from: payloads/darwin
+      to: server-payload
+  target:
+    - target: dmg
+      arch: [arm64, x64]
+  category: public.app-category.developer-tools
+  identity: '-'
+  hardenedRuntime: false
+  notarize: false
+  artifactName: SQL-Cockpit-Server-${version}-mac-${arch}.${ext}
+linux:
+  extraResources:
+    - from: payloads/linux
+      to: server-payload
+  target:
+    - target: AppImage
+      arch: [x64]
+  category: Development
+  artifactName: SQL-Cockpit-Server-${version}-linux-${arch}.${ext}
+publish: null
